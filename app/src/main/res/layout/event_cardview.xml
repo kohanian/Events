@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:background="#58FAF4">
 
         <ImageView
             android:id="@+id/event_image"

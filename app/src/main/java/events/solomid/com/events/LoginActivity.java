@@ -2,9 +2,11 @@ package events.solomid.com.events;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -18,6 +20,7 @@ import java.util.Arrays;
 
 public class LoginActivity extends Activity {
     private CallbackManager callbackManager;
+    TextView title;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -55,6 +58,11 @@ public class LoginActivity extends Activity {
                 });
 
         Button fb_login_button = (Button) findViewById(R.id.fb_login_button);
+
+        title = (TextView)findViewById(R.id.textView);
+        Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Poiret.ttf");
+        title.setTypeface(typeface);
+
         fb_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
