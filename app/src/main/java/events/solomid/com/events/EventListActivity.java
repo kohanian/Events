@@ -46,10 +46,12 @@ public class EventListActivity extends Activity {
         Bundle extras = new Bundle();
         if(EventListActivity.events != null) {
             extras.putString("NAME", calenderEvent.title);
+            Log.d("cat2", calenderEvent.latlong.toString().substring(8,23)) ;
             if(calenderEvent.latlong != null)
-                extras.putString("LATLONG", calenderEvent.latlong.toString());
-            else
-                extras.putString("LATLONG", "NULL");
+                extras.putString("LATLONG",
+                        Double.toString(calenderEvent.latlong.getLatitude()) + " " +
+                        Double.toString(calenderEvent.latlong.getLongitude()));
+            else extras.putString("LATLONG", "NULL");
         }
         alarmIntent.putExtras(extras);
 
@@ -119,7 +121,7 @@ public class EventListActivity extends Activity {
                                     Log.d("SAYTHIS", js_event.getJSONObject("place").toString());
 
                                     Location loc = null;
-                                    if(js_event.has("location")) {
+                                    if(js_event.getJSONObject("place").has("location")) {
                                         Double lat = js_event.getJSONObject("place")
                                                 .getJSONObject("location")
                                                 .getDouble("latitude");
@@ -129,6 +131,7 @@ public class EventListActivity extends Activity {
                                         loc = new Location("Events");
                                         loc.setLatitude(lat);
                                         loc.setLongitude(lon);
+                                        Log.d("cat", loc.getLatitude() + " " + loc.getLongitude()) ;
                                     }
                                     events.add(new CalenderEvent(title, date, location, loc));
                                 }

@@ -17,7 +17,17 @@ public class AlarmReceiver extends BroadcastReceiver{
         Bundle args = intent.getExtras();
         if(args != null) {
             String taskName = args.getString("NAME");
-            String latLong = args.getString("LATLONG");
+            String latLong = args.getString("LATLONG") ;
+            Log.d("cat", latLong) ;
+            Location event = null;
+            if (latLong != null && latLong != "NULL")
+            {
+                event = new Location("Event") ;
+
+                String[] arr = latLong.split(" ");
+                event.setLatitude(Double.parseDouble(arr[0]));
+                event.setLongitude(Double.parseDouble(arr[1]));
+            }
             Log.d("AlarmService", "Test arg:" + taskName + " @ GPS " + latLong);
             Toast.makeText(context,"!-"+taskName+" @ "+latLong,Toast.LENGTH_SHORT).show();
             LocationManager mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -26,8 +36,21 @@ public class AlarmReceiver extends BroadcastReceiver{
                 Log.e("woot","NO GPS");
                 Toast.makeText(context,"NO-GPS",Toast.LENGTH_SHORT).show();
             } else {
-                Log.e("woot","TEST: "+swagTest.toString());
-                Toast.makeText(context,"WOOT:",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "TEST: " + swagTest.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "TEST: " + event.toString(), Toast.LENGTH_LONG).show();
+                Log.e("woot", "TEST1: " + swagTest.toString()) ;
+                Log.e("woot", "TEST1: "+ event.toString()) ;
+
+                if (swagTest.distanceTo(event) < 1000)
+                {
+
+                    Toast.makeText(context,"You made it! Distance: " + swagTest.distanceTo(event),Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context,"You didnt make it :( Distance: "+swagTest.distanceTo(event),Toast.LENGTH_SHORT).show();
+                }
+                //TODO actually check location
             }
         } else {
             Toast.makeText(context,"It broke man!",Toast.LENGTH_SHORT).show();
