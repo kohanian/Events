@@ -10,16 +10,6 @@
     tools:context="events.solomid.com.events.LoginActivity"
     android:background="#58FAF4">
 
-    <!--pissing me off
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook_login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        />
-    -->
-
     <Button
         android:id="@+id/fb_login_button"
         android:background="@drawable/com_facebook_button_background"

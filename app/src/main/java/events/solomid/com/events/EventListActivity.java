@@ -1,5 +1,6 @@
 package events.solomid.com.events;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,12 +30,15 @@ import java.util.Locale;
 
 public class EventListActivity extends Activity {
     RecyclerView recyclerView;
-    ArrayList<CalenderEvent> calenderEvents;
+    static ArrayList<CalenderEvent> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        if (events == null) events = new ArrayList<>();
+        else events.clear();
 
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -44,7 +48,6 @@ public class EventListActivity extends Activity {
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         /** parse results add to event adapter **/
-                        ArrayList<CalenderEvent> events = new ArrayList<>();
 
                         try {
                             if (response != null) {
@@ -67,10 +70,23 @@ public class EventListActivity extends Activity {
 
                                     /** TODO: track their actual locations **/
 
-                                    //String location =
-                                    //        js_event.getJSONObject("place").getString("name");
+                                    String location =
+                                            js_event.getJSONObject("place").getString("name");
+                                    Log.d("SAYTHIS", js_event.getJSONObject("place").toString());
 
-                                    events.add(new CalenderEvent(title, date, "ppop"));
+                                    Location loc = null;
+                                    if(js_event.has("location")) {
+                                        Double lat = js_event.getJSONObject("place")
+                                                .getJSONObject("location")
+                                                .getDouble("latitude");
+                                        Double lon = js_event.getJSONObject("place")
+                                                .getJSONObject("location")
+                                                .getDouble("longitude");
+                                        loc = new Location("Events");
+                                        loc.setLatitude(lat);
+                                        loc.setLongitude(lon);
+                                    }
+                                    events.add(new CalenderEvent(title, date, location, loc));
                                 }
 
                                 Collections.sort(events);
@@ -87,10 +103,6 @@ public class EventListActivity extends Activity {
                         } catch (JSONException | ParseException error) {
                             Log.d("SAYTHIS", "fuck");
                         }
-
-                        /*
-
-                        */
                     }
                 }
         ).executeAsync();

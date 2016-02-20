@@ -1,5 +1,6 @@
 package events.solomid.com.events;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
@@ -12,11 +13,13 @@ public class CalenderEvent implements Comparable<CalenderEvent> {
     public String title;
     public Date date;
     public String location;
+    public Location latlong;
 
-    CalenderEvent(String title, Date date, String location) {
+    CalenderEvent(String title, Date date, String location, Location latlong) {
         this.title = title;
         this.date = date;
         this.location = location;
+        this.latlong = latlong;
     }
 
     public int compareTo(CalenderEvent ce) {
