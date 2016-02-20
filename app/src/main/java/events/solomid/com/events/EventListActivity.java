@@ -36,6 +36,7 @@ import java.util.Locale;
 public class EventListActivity extends Activity {
     RecyclerView recyclerView;
     static ArrayList<CalenderEvent> events;
+    EventsDBAdapter eventsDBAdapter;
 
     private void scheduleEvent(CalenderEvent calenderEvent, int requestCode) {
         Intent alarmIntent = new Intent(EventListActivity.this, AlarmReceiver.class);
@@ -57,13 +58,27 @@ public class EventListActivity extends Activity {
         Toast.makeText(this, "Alarm Ready: "+calenderEvent.title, Toast.LENGTH_SHORT).show();
     }
 
+    private String hashEvent(CalenderEvent event) {
+        int val = event.title.length()+ event.location.length();
+        String temp = event.title+event.location+val;
+        temp = temp.replace(" ","_");
+        Log.d("EventList","Hash: "+temp);
+        return temp;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
-        if (events == null) events = new ArrayList<>();
-        else events.clear();
+        if (events == null)
+            events = new ArrayList<>();
+        else
+            events.clear();
+
+        eventsDBAdapter = new EventsDBAdapter(this);
+        eventsDBAdapter.open();
+
 
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -114,12 +129,31 @@ public class EventListActivity extends Activity {
                                     events.add(new CalenderEvent(title, date, location, loc));
                                 }
 
-                                //fixme debug only
-                                Date dateA = new Date(System.currentTimeMillis()+10000);
-                                Date dateB = new Date(System.currentTimeMillis()+20000);
-                                events.add(new CalenderEvent("Debug A", dateA, "Here", new Location("")));
-                                events.add(new CalenderEvent("Debug B", dateB, "There", new Location("")));
+                                ArrayList<String> existingHashes = eventsDBAdapter.fetchAllEventHashes();
+                                int counter = 0;
+                                for(CalenderEvent event : events) {
+                                    boolean alreadyExists = false;
+                                    String hashToCheck = hashEvent(event);
+                                    for(String existingHash : existingHashes) {
+                                        if(hashToCheck.equals(existingHash)) {
+                                            // There is a match, don't add this
+                                            alreadyExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!alreadyExists) {
+                                        //Add it to the database & queue it up
+                                        scheduleEvent(event,counter);
+                                        counter += 1;
+                                        eventsDBAdapter.createEvent(event.title,hashToCheck);
+                                        Log.d("ListActivity","FIRST TIME: "+event.title+". Added to db.");
+                                    } else {
+                                        //Already exists, do nothing
+                                        Log.d("ListActivity","NOT FIRST TIME: "+event.title);
+                                    }
+                                }
 
+                                eventsDBAdapter.close();
                                 Collections.sort(events);
 
                                 Log.d("SAYTHIS", "This is size of " + Integer.toString(events.size()));
@@ -130,11 +164,6 @@ public class EventListActivity extends Activity {
                                 LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
                                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(llm);
-
-                                //TODO: Schedule all events not just the first
-
-                                scheduleEvent(events.get(0),0);
-                                scheduleEvent(events.get(1),1);
                             }
                         } catch (JSONException | ParseException error) {
                             Log.d("SAYTHIS", "fuck");
