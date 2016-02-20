@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <action android:name="android.intent.action.QUICKBOOT_POWERON" />
 
     <application
         android:allowBackup="true"
@@ -40,6 +42,12 @@
         <service
             android:name=".LocationService"
             android:enabled="true" />
+
+        <receiver android:process=":remote" android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
