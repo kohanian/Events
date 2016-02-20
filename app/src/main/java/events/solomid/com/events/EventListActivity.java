@@ -1,5 +1,9 @@
 package events.solomid.com.events;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -31,6 +36,22 @@ import java.util.Locale;
 public class EventListActivity extends Activity {
     RecyclerView recyclerView;
     static ArrayList<CalenderEvent> events;
+
+    private void scheduleEvent(CalenderEvent calenderEvent) {
+        Intent alarmIntent = new Intent(EventListActivity.this, AlarmReceiver.class);
+        Bundle extras = new Bundle();
+        if(EventListActivity.events != null) {
+            extras.putInt("COUNT",69);
+        }
+        alarmIntent.putExtras(extras);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventListActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        manager.set(AlarmManager.RTC_WAKEUP, calenderEvent.date.getTime(), pendingIntent);
+        Log.d("Swag","Scheduled for "+calenderEvent.date.toString());
+        Toast.makeText(this, "Alarm Ready: "+calenderEvent.title, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +120,9 @@ public class EventListActivity extends Activity {
                                 LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
                                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(llm);
+
+                                //TODO: Schedule all events not just the first
+                                scheduleEvent(events.get(0));
                             }
                         } catch (JSONException | ParseException error) {
                             Log.d("SAYTHIS", "fuck");

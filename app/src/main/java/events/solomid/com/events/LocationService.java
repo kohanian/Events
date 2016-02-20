@@ -20,10 +20,10 @@ public class LocationService extends Service
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 1000;
     private static final float LOCATION_DISTANCE = 10f;
+    public static Location mLastLocation;
 
     private class LocationListener implements android.location.LocationListener
     {
-        Location mLastLocation;
 
         public LocationListener(String provider)
         {
@@ -73,6 +73,7 @@ public class LocationService extends Service
     {
         Log.d(TAG, "onStartCommand");
         super.onStartCommand(intent, flags, startId);
+        Log.d(TAG, "onStartCommand2");
         return START_STICKY;
     }
 
