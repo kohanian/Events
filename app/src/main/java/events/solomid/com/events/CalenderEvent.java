@@ -9,7 +9,7 @@ import java.util.Date;
 public class CalenderEvent {
     private String name;
     private Date date;
-
+    private String Location;
 
     public String getName() {
         return name;
@@ -19,4 +19,7 @@ public class CalenderEvent {
         return date;
     }
 
+    public String getLocation() {
+        return Location;
+    }
 }

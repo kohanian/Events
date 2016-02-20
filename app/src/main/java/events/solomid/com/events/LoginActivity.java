@@ -25,7 +25,6 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         if (AccessToken.getCurrentAccessToken() != null) {
             go_to_home();
         }
@@ -69,5 +68,6 @@ public class LoginActivity extends Activity {
     private void go_to_home() {
         Intent intent = new Intent(this, TestLoginActivity.class);
         startActivity(intent);
+        startService(new Intent(this, LocationService.class));
     }
 }
