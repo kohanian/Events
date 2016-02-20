@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
         Button fb_login_button = (Button) findViewById(R.id.fb_login_button);
 
         title = (TextView)findViewById(R.id.textView);
-        Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Poiret.ttf");
+        Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Orbitron-Regular.ttf");
         title.setTypeface(typeface);
 
         fb_login_button.setOnClickListener(new View.OnClickListener() {

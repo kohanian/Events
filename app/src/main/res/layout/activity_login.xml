@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="EVENT$"
         android:id="@+id/textView"
-        android:textSize="40sp"
+        android:textSize="60sp"
         android:gravity="center_vertical|center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
