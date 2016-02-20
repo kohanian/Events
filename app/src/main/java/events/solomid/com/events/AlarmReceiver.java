@@ -27,7 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver{
                 Toast.makeText(context,"NO-GPS",Toast.LENGTH_SHORT).show();
             } else {
                 Log.e("woot","TEST: "+swagTest.toString());
-                Toast.makeText(context,"WOOT",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"WOOT:",Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(context,"It broke man!",Toast.LENGTH_SHORT).show();
