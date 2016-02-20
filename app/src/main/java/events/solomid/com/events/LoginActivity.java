@@ -85,10 +85,9 @@ public class LoginActivity extends Activity {
     }
 
     private void go_to_home() {
-        Intent intent = new Intent(this, TestLoginActivity.class);
+        Intent intent = new Intent(this, EventListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         startService(new Intent(this, LocationService.class));
     }
-
 }
