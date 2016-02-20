@@ -14,6 +14,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import java.util.Arrays;
+
 public class LoginActivity extends Activity {
     private CallbackManager callbackManager;
 
@@ -32,29 +34,32 @@ public class LoginActivity extends Activity {
             go_to_home();
         }
 
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        go_to_home();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        //go to normal page
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        //go to error page
+                    }
+                });
+
         Button fb_login_button = (Button) findViewById(R.id.fb_login_button);
         fb_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callbackManager = CallbackManager.Factory.create();
-
-                LoginManager.getInstance().registerCallback(callbackManager,
-                        new FacebookCallback<LoginResult>() {
-                            @Override
-                            public void onSuccess(LoginResult loginResult) {
-                                go_to_home();
-                            }
-
-                            @Override
-                            public void onCancel() {
-                                //do something
-                            }
-
-                            @Override
-                            public void onError(FacebookException error) {
-                                //do something
-                            }
-                        });
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this,
+                        Arrays.asList("public_profile", "user_friends", "user_events"));
             }
         });
     }
