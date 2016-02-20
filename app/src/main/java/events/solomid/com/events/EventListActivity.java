@@ -11,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -216,5 +219,29 @@ public class EventListActivity extends Activity {
             location = (TextView)  v.findViewById(R.id.event_location);
             date = (TextView)  v.findViewById(R.id.event_date);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_cleardb:
+                if(eventsDBAdapter != null) {
+                    eventsDBAdapter.open();
+                    Toast.makeText(this,"FIXME!",Toast.LENGTH_SHORT).show();
+                    eventsDBAdapter.resetTable();
+                    eventsDBAdapter.close();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
     }
 }

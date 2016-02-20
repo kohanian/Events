@@ -34,7 +34,7 @@ public class EventsDBAdapter {
 
     private static final String DATABASE_NAME = "com.solomid.events.data";
     private static final String DATABASE_TABLE = "events";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private final Context mCtx;
 
@@ -55,7 +55,7 @@ public class EventsDBAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS notes");
+            db.execSQL("DROP TABLE IF EXISTS events");
             onCreate(db);
         }
     }
@@ -71,7 +71,7 @@ public class EventsDBAdapter {
     }
 
     /**
-     * Open the notes database. If it cannot be opened, try to create a new
+     * Open the events database. If it cannot be opened, try to create a new
      * instance of the database. If it cannot be created, throw an exception to
      * signal the failure
      *
@@ -191,5 +191,12 @@ public class EventsDBAdapter {
         args.put(KEY_HASH, hash);
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
+    public void resetTable() {
+        Log.d(TAG, "Dropping table!");
+
+        mDb.execSQL("DELETE FROM events");
+
     }
 }
