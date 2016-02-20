@@ -50,7 +50,8 @@ public class EventListActivity extends Activity {
         }
         alarmIntent.putExtras(extras);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventListActivity.this, requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventListActivity.this, requestCode,
+                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         manager.set(AlarmManager.RTC_WAKEUP, calenderEvent.date.getTime(), pendingIntent);
@@ -90,7 +91,7 @@ public class EventListActivity extends Activity {
                         /** parse results add to event adapter **/
 
                         try {
-                            if (response != null) {
+                            if (response.getJSONObject() != null) {
                                 JSONObject jsoo = response.getJSONObject();
                                 JSONArray jsa = jsoo.getJSONArray("data");
                                 SimpleDateFormat stdformatter =
