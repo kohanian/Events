@@ -21,8 +21,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestLoginActivity" />
-
         <activity
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
