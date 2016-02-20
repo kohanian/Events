@@ -7,19 +7,13 @@ import java.util.Date;
  * Represent
  */
 public class CalenderEvent {
-    private String name;
-    private Date date;
-    private String Location;
+    public String title;
+    public Date date;
+    public String location;
 
-    public String getName() {
-        return name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getLocation() {
-        return Location;
+    CalenderEvent(String title, Date date, String location) {
+        this.title = title;
+        this.date = date;
+        this.location = location;
     }
 }

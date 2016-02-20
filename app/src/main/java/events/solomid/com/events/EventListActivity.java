@@ -31,31 +31,30 @@ public class EventListActivity extends Activity {
 
     //Override arrayAdapter so that
     class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
-        private List<CalenderEvent> contactList;
+        private List<CalenderEvent> eventList;
 
         public EventAdapter(List<CalenderEvent> contactList) {
-            this.contactList = contactList;
+            this.eventList = contactList;
         }
 
         @Override
         public int getItemCount() {
-            return contactList.size();
+            return eventList.size();
         }
 
         @Override
-        public void onBindViewHolder(EventViewHolder contactViewHolder, int i) {
-            CalenderEvent ci = contactList.get(i);
-            contactViewHolder.vName.setText(ci.name);
-            contactViewHolder.vSurname.setText(ci.surname);
-            contactViewHolder.vEmail.setText(ci.email);
-            contactViewHolder.vTitle.setText(ci.name + " " + ci.surname);
+        public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
+            CalenderEvent calenderEvent = eventList.get(i);
+            eventViewHolder.title.setText(calenderEvent.title);
+            eventViewHolder.date.setText(calenderEvent.date.toString());
+            eventViewHolder.location.setText(calenderEvent.location);
         }
 
         @Override
         public EventViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View itemView = LayoutInflater.
                     from(viewGroup.getContext()).
-                    inflate(R.layout.card_layout, viewGroup, false);
+                    inflate(R.layout.event_cardview, viewGroup, false);
 
             return new EventViewHolder(itemView);
         }
@@ -63,15 +62,15 @@ public class EventListActivity extends Activity {
     }
 
     static class EventViewHolder extends RecyclerView.ViewHolder {
-        protected TextView vName;
-        protected TextView vLocation;
-        protected TextView vDate;
+        public TextView title;
+        public TextView location;
+        public TextView date;
 
         public EventViewHolder(View v) {
             super(v);
-            vName =  (TextView) v.findViewById(R.id.kyleTextName);
-            vLocation = (TextView)  v.findViewById(R.id.kyleTextLocation);
-            vDate = (TextView)  v.findViewById(R.id.txtDate);
+            title =  (TextView) v.findViewById(R.id.event_title);
+            location = (TextView)  v.findViewById(R.id.event_location);
+            date = (TextView)  v.findViewById(R.id.event_date);
         }
     }
 }

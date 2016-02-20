@@ -15,30 +15,31 @@
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".LocationService"
-            android:enabled="true" />
+        <activity android:name=".TestLoginActivity" />
+
+        <activity
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:name="com.facebook.FacebookActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            />
+
+        <activity
+            android:label="@string/title_activity_event_list"
+            android:name=".EventListActivity"
+            />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".TestLoginActivity" />
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".EventListActivity"
-            android:label="@string/title_activity_event_list" >
-        </activity>
+        <service
+            android:name=".LocationService"
+            android:enabled="true" />
     </application>
 
 </manifest>

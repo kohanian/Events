@@ -3,14 +3,16 @@ package events.solomid.com.events;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 public class LoginActivity extends Activity {
     private CallbackManager callbackManager;
@@ -25,30 +27,34 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         if (AccessToken.getCurrentAccessToken() != null) {
             go_to_home();
         }
 
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginButton fb_login_button = (LoginButton) findViewById(R.id.facebook_login_button);
-        //set user permissions
-
-        fb_login_button.setReadPermissions("user_friends");
-        fb_login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        Button fb_login_button = (Button) findViewById(R.id.fb_login_button);
+        fb_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                go_to_home();
-            }
+            public void onClick(View v) {
+                callbackManager = CallbackManager.Factory.create();
 
-            @Override
-            public void onCancel() {
-                //stay on this page
-            }
+                LoginManager.getInstance().registerCallback(callbackManager,
+                        new FacebookCallback<LoginResult>() {
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+                                go_to_home();
+                            }
 
-            @Override
-            public void onError(FacebookException error) {
-                //do something
+                            @Override
+                            public void onCancel() {
+                                //do something
+                            }
+
+                            @Override
+                            public void onError(FacebookException error) {
+                                //do something
+                            }
+                        });
             }
         });
     }
@@ -67,7 +73,9 @@ public class LoginActivity extends Activity {
 
     private void go_to_home() {
         Intent intent = new Intent(this, TestLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         startService(new Intent(this, LocationService.class));
     }
+
 }
