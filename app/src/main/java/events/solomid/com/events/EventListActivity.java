@@ -37,19 +37,23 @@ public class EventListActivity extends Activity {
     RecyclerView recyclerView;
     static ArrayList<CalenderEvent> events;
 
-    private void scheduleEvent(CalenderEvent calenderEvent) {
+    private void scheduleEvent(CalenderEvent calenderEvent, int requestCode) {
         Intent alarmIntent = new Intent(EventListActivity.this, AlarmReceiver.class);
         Bundle extras = new Bundle();
         if(EventListActivity.events != null) {
-            extras.putInt("COUNT",69);
+            extras.putString("NAME", calenderEvent.title);
+            if(calenderEvent.latlong != null)
+                extras.putString("LATLONG", calenderEvent.latlong.toString());
+            else
+                extras.putString("LATLONG", "NULL");
         }
         alarmIntent.putExtras(extras);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventListActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventListActivity.this, requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         manager.set(AlarmManager.RTC_WAKEUP, calenderEvent.date.getTime(), pendingIntent);
-        Log.d("Swag","Scheduled for "+calenderEvent.date.toString());
+        Log.d("Swag", "Scheduled for " + calenderEvent.date.toString());
         Toast.makeText(this, "Alarm Ready: "+calenderEvent.title, Toast.LENGTH_SHORT).show();
     }
 
@@ -110,6 +114,12 @@ public class EventListActivity extends Activity {
                                     events.add(new CalenderEvent(title, date, location, loc));
                                 }
 
+                                //fixme debug only
+                                Date dateA = new Date(System.currentTimeMillis()+10000);
+                                Date dateB = new Date(System.currentTimeMillis()+20000);
+                                events.add(new CalenderEvent("Debug A", dateA, "Here", new Location("")));
+                                events.add(new CalenderEvent("Debug B", dateB, "There", new Location("")));
+
                                 Collections.sort(events);
 
                                 Log.d("SAYTHIS", "This is size of " + Integer.toString(events.size()));
@@ -122,7 +132,9 @@ public class EventListActivity extends Activity {
                                 recyclerView.setLayoutManager(llm);
 
                                 //TODO: Schedule all events not just the first
-                                scheduleEvent(events.get(0));
+
+                                scheduleEvent(events.get(0),0);
+                                scheduleEvent(events.get(1),1);
                             }
                         } catch (JSONException | ParseException error) {
                             Log.d("SAYTHIS", "fuck");
