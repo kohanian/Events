@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        go_to_home();
+                        go_to_account();
                     }
 
                     @Override
@@ -89,5 +89,12 @@ public class LoginActivity extends Activity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         startService(new Intent(this, LocationService.class));
+    }
+
+    private void go_to_account() {
+        Intent intent = new Intent(LoginActivity.this, account_info.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        //startService(new Intent(this, LocationService.class));
     }
 }
