@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,7 +47,7 @@ public class EventListActivity extends Activity {
         Bundle extras = new Bundle();
         if(EventListActivity.events != null) {
             extras.putString("NAME", calenderEvent.title);
-            Log.d("cat2", calenderEvent.latlong.toString().substring(8,23)) ;
+            Log.d("cat2", calenderEvent.latlong.toString().substring(8, 23)) ;
             if(calenderEvent.latlong != null)
                 extras.putString("LATLONG",
                         Double.toString(calenderEvent.latlong.getLatitude()) + " " +
@@ -235,6 +236,14 @@ public class EventListActivity extends Activity {
                     eventsDBAdapter.resetTable();
                     eventsDBAdapter.close();
                 }
+                return true;
+            case R.id.action_test:
+                HttpRequester requester = new HttpRequester(this);
+                requester.getData("/accounts");
+                HashMap<String,String> paramList = new HashMap<>();
+                paramList.put("Key1","value1");
+                paramList.put("Key2","value2");
+                requester.postData("/accounts",paramList);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
