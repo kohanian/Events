@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
     }
 
     private void go_to_account() {
-        Intent intent = new Intent(LoginActivity.this, account_info.class);
+        Intent intent = new Intent(LoginActivity.this, AccountInfo.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         //startService(new Intent(this, LocationService.class));

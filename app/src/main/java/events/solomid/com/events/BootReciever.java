@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 /**
  * Automatically runs upon device boot
@@ -21,7 +20,7 @@ public class BootReciever extends BroadcastReceiver {
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             int interval = 60*1000; //Every 1 minute
             manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-            Toast.makeText(context, "Alarm Scheduled upon boot!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Alarm Scheduled upon boot!", Toast.LENGTH_SHORT).show();
         }
     }
 }

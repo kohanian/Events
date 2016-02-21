@@ -43,7 +43,7 @@
         </receiver>
 
         <activity android:name=".MissedEventActivity" />
-        <activity android:name=".account_info" />
+        <activity android:name=".AccountInfo" />
         <activity
             android:name=".CharityListActivity"
             android:label="@string/title_activity_charity_list" />

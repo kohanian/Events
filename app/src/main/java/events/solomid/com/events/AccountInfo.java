@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class account_info extends Activity {
-
+public class AccountInfo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +23,8 @@ public class account_info extends Activity {
                 String string_id = id.getText().toString() ;
                 SharedPreferences.Editor prefs = getSharedPreferences(HttpRequester.SHARED_PREF_NAME, MODE_PRIVATE).edit();
                 prefs.putString("id", string_id) ;
-                prefs.commit() ;
-                Intent intent = new Intent(account_info.this, CharityListActivity.class);
+                prefs.apply();
+                Intent intent = new Intent(AccountInfo.this, CharityListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }

@@ -2,7 +2,6 @@ package events.solomid.com.events;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;

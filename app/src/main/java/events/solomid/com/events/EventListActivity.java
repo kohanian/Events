@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -61,7 +60,7 @@ public class EventListActivity extends Activity {
 
         manager.set(AlarmManager.RTC_WAKEUP, calenderEvent.date.getTime(), pendingIntent);
         Log.d("Swag", "Scheduled for " + calenderEvent.date.toString());
-        Toast.makeText(this, "Alarm Ready: "+calenderEvent.title, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Alarm Ready: "+calenderEvent.title, Toast.LENGTH_SHORT).show();
     }
 
     private String hashEvent(CalenderEvent event) {
@@ -113,8 +112,6 @@ public class EventListActivity extends Activity {
                                     Date date = stdformatter.parse(date_string);
 
                                     if (new Date().after(date)) continue;
-
-                                    /** TODO: track their actual locations **/
 
                                     String location =
                                             js_event.getJSONObject("place").getString("name");
@@ -231,7 +228,6 @@ public class EventListActivity extends Activity {
             case R.id.action_cleardb:
                 if(eventsDBAdapter != null) {
                     eventsDBAdapter.open();
-                    Toast.makeText(this,"FIXME!",Toast.LENGTH_SHORT).show();
                     eventsDBAdapter.resetTable();
                     eventsDBAdapter.close();
                 }
