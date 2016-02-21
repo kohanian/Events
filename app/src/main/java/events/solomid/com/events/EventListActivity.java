@@ -238,17 +238,12 @@ public class EventListActivity extends Activity {
                 return true;
             case R.id.action_test:
                 HttpRequester requester = new HttpRequester(this);
-                requester.getData("/accounts/56c66be6a73e492741507b78");
-                HashMap<String,String> paramList = new HashMap<>();
-                paramList.put("Key1","value1");
-                paramList.put("Key2","value2");
-                requester.postData("/accounts",paramList);
+                requester.donateCash();
                 return true;
             case R.id.profile_link:
                 Intent intent = new Intent(EventListActivity.this,ProfileActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
-
             default:
                 return super.onOptionsItemSelected(item);
         }

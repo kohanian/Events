@@ -8,5 +8,5 @@
         android:orderInCategory="101" android:showAsAction="never" />
 
     <item android:id="@+id/profile_link" android:title="@string/profile_link"
-        android:orderInCategory="101" android:showAsAction="never" />
+        android:orderInCategory="102" android:showAsAction="never" />
 </menu>

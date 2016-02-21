@@ -16,12 +16,12 @@ public class CharityListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charity_list);
         String[] list = new String[6] ;
-        list[0] = "Chukwudi" ;
+        list[0] = "The Chukwudi Fund" ;
         list[1] = "Feed the Squirrels" ;
-        list[2] = "Jbrabers@gmail.com" ;
+        list[2] = "Cakes for Kidz" ;
         list[3] = "Ankit needs a new pair of shoes" ;
-        list[4] = "Pro smash bros. Fund" ;
-        list[5] = "plz" ;
+        list[4] = "Furry Friends Fund" ;
+        list[5] = "Hugs for puppies" ;
         final ListView listv = (ListView) findViewById(R.id.charities) ;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                                                                 android.R.layout.simple_list_item_1,
@@ -31,7 +31,7 @@ public class CharityListActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferences.Editor prefs = getSharedPreferences("EVENTS_PREFS", MODE_PRIVATE).edit();
+                SharedPreferences.Editor prefs = getSharedPreferences(HttpRequester.SHARED_PREF_NAME, MODE_PRIVATE).edit();
                 String charity = listv.getItemAtPosition(position).toString() ;
                 prefs.putString("CHARITY", charity) ;
                 prefs.commit() ;

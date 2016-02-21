@@ -22,6 +22,10 @@ import java.util.Map;
  * but these routes should work properly once the server is back.
  */
 public class HttpRequester {
+    public static final String SHARED_PREF_NAME = "Events_Prefs";
+    public static final String SHARED_PREF_ID_CHARITY = "PREFS_CHARITY";
+    public static final String SHARED_PREF_ID_ACCID = "PREFS_ACCOUNTID";
+    public static final String SHARED_PREF_ID_TOTALDONATED = "PREFS_TOTAL";
     private static final String TAG = "HttpRequester";
     private String KEY_FOOTER = "?key=f0a4eb272636ecc69f9491831bbfb65e";
     private String BASE_URL = "http://api.reimaginebanking.com";
@@ -34,7 +38,7 @@ public class HttpRequester {
     public void donateCash() {
         //Transfer cash from dummy account into another dummy account to simulate donation
         SharedPreferences sharedPreferences = context.
-                getSharedPreferences("EVENTS_PREFS", Context.MODE_PRIVATE);
+                getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         int AMOUNT = 5; //Cash to donate
         String DONER_ID = sharedPreferences.getString("id", "123456789");
         String DONER_ACCOUNT_ID = "56c66be6a73e492741507b7b";
@@ -52,9 +56,10 @@ public class HttpRequester {
 
         //Update shared preferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        int currentDollarsDonated = sharedPreferences.getInt("TOTAL_DONATED", 0);
-        editor.putInt("TOTAL_DONATED",currentDollarsDonated+AMOUNT);
-        editor.apply();
+        int currentDollarsDonated = sharedPreferences.getInt(SHARED_PREF_ID_TOTALDONATED, 0);
+        editor.putInt(SHARED_PREF_ID_TOTALDONATED,currentDollarsDonated+AMOUNT);
+        Log.d("plzz","Updating: "+currentDollarsDonated+" and "+AMOUNT);
+        editor.commit();
     }
 
     public void getData(String route) {

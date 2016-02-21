@@ -49,6 +49,9 @@ public class AlarmReceiver extends BroadcastReceiver{
                 else
                 {
                     Toast.makeText(context,"You didnt make it :( Distance: "+swagTest.distanceTo(event),Toast.LENGTH_SHORT).show();
+                    HttpRequester requester = new HttpRequester(context);
+                    Log.d("Donating","Donating Cash...");
+                    requester.donateCash();
                 }
                 //TODO actually check location
             }

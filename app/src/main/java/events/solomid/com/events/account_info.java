@@ -22,7 +22,7 @@ public class account_info extends Activity {
             public void onClick(View v) {
                 EditText id = (EditText) findViewById(R.id.id_input);
                 String string_id = id.getText().toString() ;
-                SharedPreferences.Editor prefs = getSharedPreferences("EVENTS_PREFS", MODE_PRIVATE).edit();
+                SharedPreferences.Editor prefs = getSharedPreferences(HttpRequester.SHARED_PREF_NAME, MODE_PRIVATE).edit();
                 prefs.putString("id", string_id) ;
                 prefs.commit() ;
                 Intent intent = new Intent(account_info.this, CharityListActivity.class);
