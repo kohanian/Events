@@ -76,7 +76,8 @@ public class HttpRequester {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.com_facebook_button_icon)
                         .setContentTitle("Events")
-                        .setContentText("You missed your event!");
+                        .setContentText("You missed your event!")
+                        .setAutoCancel(true);
 
         Intent resultIntent = new Intent(context, MissedEventActivity.class);
 
@@ -91,6 +92,7 @@ public class HttpRequester {
         builder.setContentIntent(resultPendingIntent);
         NotificationManager notif = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         notif.notify(48434, builder.build());
     }
 
