@@ -24,7 +24,7 @@
         android:id="@+id/id_input"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:text="Account ID" />
+        android:text="1234567" />
 
     <Button
         android:layout_width="wrap_content"

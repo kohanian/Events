@@ -40,18 +40,19 @@ public class HttpRequester {
                 getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         int AMOUNT = 5; //Cash to donate
         String DONER_ID = sharedPreferences.getString("id", "123456789");
-        String DONER_ACCOUNT_ID = "56c66be6a73e492741507b7b";
+        DONER_ID = DONER_ID.replace(" ","");
+        String DONER_ACCOUNT_ID = "56c66be6a73e492741507b78";
         String RECIEVER_ID = "56c66be5a73e492741507298";
-        String RECIEVER_ACCOUNT_ID = "56c66be6a73e492741507b7e";
+        String RECIEVER_ACCOUNT_ID = "56c66be6a73e492741507b79";
 
         HashMap<String,String> params = new HashMap<>();
         params.put("medium","balance");
-        params.put("payee_id",RECIEVER_ID);
+        params.put("payee_id",RECIEVER_ACCOUNT_ID);
         params.put("amount",Integer.toString(AMOUNT));
         params.put("transaction_date","1-1-2016");
         params.put("status","balance");
         params.put("description","balance");
-        postData("/accounts/" + DONER_ID+"/transfers", params);
+        postData("/accounts/"+DONER_ID+"/transfers", params);
 
         //Update shared preferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -89,7 +90,7 @@ public class HttpRequester {
         // Instantiate the RequestQueue
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = BASE_URL+route+KEY_FOOTER;
-        url = "http://ign.com";
+
         Log.d(TAG,"Making POST request: "+url);
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

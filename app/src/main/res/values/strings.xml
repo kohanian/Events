@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_cleardb">Reset Data</string>
-    <string name="title_activity_event_list">EventListActivity</string>
+    <string name="title_activity_event_list">Event$</string>
     <string name="action_test">Test</string>
 
     <string name="event_img_desc">Event Image Description</string>
@@ -15,6 +15,6 @@
 
     <string name="login_works">Login Works</string>
     <string name="title_activity_charity_list">CharityListActivity</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">Profile</string>
     <string name="profile_link">Info</string>
 </resources>
