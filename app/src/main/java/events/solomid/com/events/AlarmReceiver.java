@@ -57,26 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver{
                     Log.d("Donating","Donating Cash...");
                     requester.donateCash();
 
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.com_facebook_button_icon)
-                            .setContentTitle("Events")
-                            .setContentText("You missed your event!");
 
-                    Intent resultIntent = new Intent(context, MissedEventActivity.class);
-
-                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-                    stackBuilder.addParentStack(EventListActivity.class);
-                    stackBuilder.addNextIntent(resultIntent);
-                    PendingIntent resultPendingIntent =
-                            stackBuilder.getPendingIntent(
-                                    0,
-                                    PendingIntent.FLAG_UPDATE_CURRENT
-                            );
-                    builder.setContentIntent(resultPendingIntent);
-                    NotificationManager notif = (NotificationManager)
-                            context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notif.notify(48434, builder.build());
                 }
             }
         } else {

@@ -1,7 +1,12 @@
 package events.solomid.com.events;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +44,7 @@ public class HttpRequester {
         SharedPreferences sharedPreferences = context.
                 getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         int AMOUNT = 5; //Cash to donate
+        Log.d("plzzz","Donating Cash");
         String DONER_ID = sharedPreferences.getString("id", "123456789");
         DONER_ID = DONER_ID.replace(" ","");
         String DONER_ACCOUNT_ID = "56c66be6a73e492741507b78";
@@ -50,16 +56,42 @@ public class HttpRequester {
         params.put("payee_id",RECIEVER_ACCOUNT_ID);
         params.put("amount",Integer.toString(AMOUNT));
         params.put("transaction_date","1-1-2016");
-        params.put("status","balance");
+        params.put("status", "balance");
         params.put("description","balance");
-        postData("/accounts/"+DONER_ID+"/transfers", params);
+        try {
+            postData("/accounts/"+DONER_ID+"/transfers", params);
+        } catch(Exception e) {
+            Log.e("Sorry","Error: "+e.getMessage());
+        }
 
         //Update shared preferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int currentDollarsDonated = sharedPreferences.getInt(SHARED_PREF_ID_TOTALDONATED, 0);
-        editor.putInt(SHARED_PREF_ID_TOTALDONATED,currentDollarsDonated+AMOUNT);
-        Log.d("plzz","Updating: "+currentDollarsDonated+" and "+AMOUNT);
+        editor.putInt(SHARED_PREF_ID_TOTALDONATED, currentDollarsDonated + AMOUNT);
+        Log.d("plzz", "Updating: " + currentDollarsDonated + " and " + AMOUNT);
         editor.commit();
+
+        //Notify User
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.com_facebook_button_icon)
+                        .setContentTitle("Events")
+                        .setContentText("You missed your event!");
+
+        Intent resultIntent = new Intent(context, MissedEventActivity.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(EventListActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager notif = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notif.notify(48434, builder.build());
     }
 
     public void getData(String route) {

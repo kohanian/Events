@@ -33,7 +33,7 @@ public class CharityListActivity extends Activity {
                 SharedPreferences.Editor prefs = getSharedPreferences(HttpRequester.SHARED_PREF_NAME, MODE_PRIVATE).edit();
                 String charity = listv.getItemAtPosition(position).toString() ;
                 prefs.putString("CHARITY", charity) ;
-                prefs.apply();
+                prefs.commit();
                 Intent intent = new Intent(CharityListActivity.this, EventListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
