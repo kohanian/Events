@@ -10,10 +10,10 @@ public class MissedEventActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missed_event);
-        Bundle args = getIntent().getExtras();
-        String name_place = args.getString("name", "ANONY");
+        //Bundle args = getIntent().getExtras();
+        //String name_place = args.getString("name", "ANONY");
 
         ((TextView) (findViewById(R.id.missed_event_textview)))
-                .setText("You missed your event!\n" + name_place);
+                .setText("You missed your event!"); 
     }
 }
