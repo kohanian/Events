@@ -46,7 +46,7 @@ public class EventListActivity extends Activity {
         Bundle extras = new Bundle();
         if(EventListActivity.events != null) {
             extras.putString("NAME", calenderEvent.title);
-            Log.d("cat2", calenderEvent.latlong.toString().substring(8,23)) ;
+            //Log.d("cat2", calenderEvent.latlong.toString().substring(8,23)) ;
             if(calenderEvent.latlong != null)
                 extras.putString("LATLONG",
                         Double.toString(calenderEvent.latlong.getLatitude()) + " " +
