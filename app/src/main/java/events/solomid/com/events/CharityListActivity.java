@@ -31,7 +31,7 @@ public class CharityListActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferences.Editor prefs = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                SharedPreferences.Editor prefs = getSharedPreferences("EVENTS_PREFS", MODE_PRIVATE).edit();
                 String charity = listv.getItemAtPosition(position).toString() ;
                 prefs.putString("CHARITY", charity) ;
                 prefs.commit() ;

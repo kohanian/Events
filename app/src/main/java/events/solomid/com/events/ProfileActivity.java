@@ -18,9 +18,13 @@ public class ProfileActivity extends Activity {
         Button edit = (Button) findViewById(R.id.edit_settings) ;
         Button exit = (Button) findViewById(R.id.exit_settings) ;
         TextView charity = (TextView) findViewById(R.id.charity_view) ;
-        SharedPreferences prefs = getSharedPreferences("PREFS", MODE_PRIVATE) ;
+        TextView amount = (TextView) findViewById(R.id.donated) ;
+        SharedPreferences prefs = getSharedPreferences("EVENTS_PREFS", MODE_PRIVATE) ;
         String ch = prefs.getString("CHARITY", "no charity") ;
+        int am = prefs.getInt("TOTAL_DONATED", 0) ;
+        String amm = "$" + am ;
         charity.setText(ch);
+        amount.setText(amm);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
