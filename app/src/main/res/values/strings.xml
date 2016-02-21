@@ -15,4 +15,6 @@
 
     <string name="login_works">Login Works</string>
     <string name="title_activity_charity_list">CharityListActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="profile_link">Info</string>
 </resources>

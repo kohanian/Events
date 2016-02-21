@@ -1,6 +1,7 @@
 package events.solomid.com.events;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -21,7 +22,7 @@ public class CharityListActivity extends Activity {
         list[3] = "Ankit needs a new pair of shoes" ;
         list[4] = "Pro smash bros. Fund" ;
         list[5] = "plz" ;
-        ListView listv = (ListView) findViewById(R.id.charities) ;
+        final ListView listv = (ListView) findViewById(R.id.charities) ;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                                                                 android.R.layout.simple_list_item_1,
                                                                 list);
@@ -30,6 +31,10 @@ public class CharityListActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor prefs = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+                String charity = listv.getItemAtPosition(position).toString() ;
+                prefs.putString("CHARITY", charity) ;
+                prefs.commit() ;
                 Intent intent = new Intent(CharityListActivity.this, EventListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);

@@ -68,7 +68,7 @@ public class EventListActivity extends Activity {
         int val = event.title.length()+ event.location.length();
         String temp = event.title+event.location+val;
         temp = temp.replace(" ","_");
-        Log.d("EventList","Hash: "+temp);
+        Log.d("EventList", "Hash: " + temp);
         return temp;
     }
 
@@ -244,6 +244,11 @@ public class EventListActivity extends Activity {
                 paramList.put("Key2","value2");
                 requester.postData("/accounts",paramList);
                 return true;
+            case R.id.profile_link:
+                Intent intent = new Intent(EventListActivity.this,ProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }

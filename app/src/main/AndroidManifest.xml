@@ -50,7 +50,10 @@
         <activity android:name=".account_info" />
         <activity
             android:name=".CharityListActivity"
-            android:label="@string/title_activity_charity_list"></activity>
+            android:label="@string/title_activity_charity_list" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"></activity>
     </application>
 
 </manifest>

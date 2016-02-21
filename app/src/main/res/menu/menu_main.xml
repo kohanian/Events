@@ -6,4 +6,7 @@
 
     <item android:id="@+id/action_test" android:title="@string/action_test"
         android:orderInCategory="101" android:showAsAction="never" />
+
+    <item android:id="@+id/profile_link" android:title="@string/profile_link"
+        android:orderInCategory="101" android:showAsAction="never" />
 </menu>
