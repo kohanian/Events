@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="events.solomid.com.events.CharityListActivity">
+    tools:context="events.solomid.com.events.CharityListActivity"
+    android:background="#707070">
 
     <ListView
         android:layout_width="wrap_content"
@@ -15,5 +16,6 @@
         android:id="@+id/charities"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:background="#58faf4" />
 </RelativeLayout>

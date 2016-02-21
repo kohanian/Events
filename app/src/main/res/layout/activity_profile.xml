@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="events.solomid.com.events.ProfileActivity">
+    tools:context="events.solomid.com.events.ProfileActivity"
+    android:background="#58faf4">
 
     <TextView
         android:layout_width="wrap_content"

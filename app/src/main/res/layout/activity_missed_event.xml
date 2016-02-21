@@ -7,17 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="events.solomid.com.events.MissedEventActivity">
+    tools:context="events.solomid.com.events.MissedEventActivity"
+    android:background="#58faf4">
 
     <TextView
         android:id="@+id/missed_event_textview"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="72dp"
         android:layout_width="wrap_content"
-        android:text="@string/hello_world"
-        />
+        android:text="You donated 5$!"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/missed_event_minus_five"

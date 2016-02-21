@@ -22,16 +22,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/id_input"
-        android:layout_centerVertical="true"
+        android:text="1234567"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="1234567" />
+        android:layout_marginBottom="178dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/submit"
-        android:layout_below="@+id/id_input"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/id_input"
+        android:layout_alignStart="@+id/id_input"
+        android:layout_marginBottom="59dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/capone"
+        android:layout_above="@+id/id_input"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
