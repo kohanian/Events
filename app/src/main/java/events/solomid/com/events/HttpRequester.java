@@ -1,6 +1,7 @@
 package events.solomid.com.events;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
@@ -17,6 +18,8 @@ import java.util.Map;
 
 /**
  * Created by Jake on 2/20/2016.
+ * The Capitol One API is offline at the time of submission,
+ * but these routes should work properly once the server is back.
  */
 public class HttpRequester {
     private static final String TAG = "HttpRequester";
@@ -27,6 +30,33 @@ public class HttpRequester {
     public HttpRequester(Context _context) {
         context = _context;
     }
+
+    public void donateCash() {
+        //Transfer cash from dummy account into another dummy account to simulate donation
+        SharedPreferences sharedPreferences = context.
+                getSharedPreferences("EVENTS_PREFS", Context.MODE_PRIVATE);
+        int AMOUNT = 5; //Cash to donate
+        String DONER_ID = sharedPreferences.getString("id", "123456789");
+        String DONER_ACCOUNT_ID = "56c66be6a73e492741507b7b";
+        String RECIEVER_ID = "56c66be5a73e492741507298";
+        String RECIEVER_ACCOUNT_ID = "56c66be6a73e492741507b7e";
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("medium","balance");
+        params.put("payee_id",RECIEVER_ID);
+        params.put("amount",Integer.toString(AMOUNT));
+        params.put("transaction_date","1-1-2016");
+        params.put("status","balance");
+        params.put("description","balance");
+        postData("/accounts/" + DONER_ID+"/transfers", params);
+
+        //Update shared preferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int currentDollarsDonated = sharedPreferences.getInt("TOTAL_DONATED", 0);
+        editor.putInt("TOTAL_DONATED",currentDollarsDonated+AMOUNT);
+        editor.apply();
+    }
+
     public void getData(String route) {
         // Instantiate the RequestQueue
         Log.d(TAG,"Making GET request...");

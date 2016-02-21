@@ -238,7 +238,7 @@ public class EventListActivity extends Activity {
                 return true;
             case R.id.action_test:
                 HttpRequester requester = new HttpRequester(this);
-                requester.getData("/accounts");
+                requester.getData("/accounts/56c66be6a73e492741507b78");
                 HashMap<String,String> paramList = new HashMap<>();
                 paramList.put("Key1","value1");
                 paramList.put("Key2","value2");
