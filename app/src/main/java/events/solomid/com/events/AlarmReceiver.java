@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver{
     @Override
@@ -36,13 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver{
             //Toast.makeText(context,"!-"+taskName+" @ "+latLong,Toast.LENGTH_SHORT).show();
 
             LocationManager mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            Location swagTest = null;
-
-            try {
-                swagTest = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            } catch (SecurityException error) {
-                Log.d("WHAT", "NO GPS");
-            }
+            Location swagTest = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if(swagTest == null) {
                  Log.e("woot","NO GPS");
@@ -56,8 +51,6 @@ public class AlarmReceiver extends BroadcastReceiver{
                     HttpRequester requester = new HttpRequester(context);
                     Log.d("Donating","Donating Cash...");
                     requester.donateCash();
-
-
                 }
             }
         } else {
